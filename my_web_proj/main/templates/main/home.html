@@ -2,11 +2,18 @@
 {% extends 'main/sample.html' %}
 
 {% block title %}
-Home Page
+{{title}}
 {% endblock %}
 
 {% block content %}
-    <h1>Home page</h1>
+    <h1>{{title}}</h1>
     <p>Example</p>
     <!--{% include 'main/plug.html' %}-->
+
+    <!--for in dict-->
+    {% for elem in val %}
+        {% filter lower %}
+        <h2>{{ elem }}</h2>
+        {% endfilter %}
+    {% endfor %}
 {% endblock %}

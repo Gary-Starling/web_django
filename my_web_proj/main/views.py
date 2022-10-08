@@ -6,7 +6,12 @@ from django.http import HttpResponse
 
 '''home page'''
 def home(req):
-    return render(req, 'main/home.html')
+    data = {
+        'title' : 'Home page',
+        'val' : ['- HTML', '- CSS', '- Python', '- Django']
+    }
+
+    return render(req, 'main/home.html', data)
 
 '''contacts page'''
 def contacts(req):

@@ -3,13 +3,23 @@ html {
 
 }
 
+
 h1 {
     font-size: 60px;
     font-weight: 600;
-    background-image: linear-gradient(to left, #fff, #fff);
+    background-image: linear-gradient(to left, rgba(255, 255, 255, 0.767), rgba(255, 255, 255, 0.856));
     color: transparent;
     background-clip: text;
     -webkit-background-clip: text;
+}
+
+h2 {
+    font-size: 30px;
+    font-weight: 400;
+    background-image: linear-gradient(to left, rgb(14, 72, 87), rgb(90, 109, 134));
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;   
 }
 
 p {
