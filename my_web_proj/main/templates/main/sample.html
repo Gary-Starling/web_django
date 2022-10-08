@@ -14,6 +14,17 @@
     <main>
         {% block content %}
         {% endblock %}
+
+        <aside>
+            <h3> Navigation </h3>
+            <ul>
+                <a href="{% url 'about'%}"><li>About</li></a>
+                <a href="{% url 'contacts'%}"><li>Contacts</li></a>
+                <a href="{% url 'details'%}"><li>Details</li></a>
+            </ul>
+        </aside>
+
+
     </main>
 </body>
 </html>

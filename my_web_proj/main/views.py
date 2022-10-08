@@ -4,13 +4,21 @@ from django.http import HttpResponse
 
 # Create your views here.
 
-'''welcome page'''
-def welcome(req):
-    return render(req, 'main/index.html')
+'''home page'''
+def home(req):
+    return render(req, 'main/home.html')
 
 '''contacts page'''
-def author(req):
-    return render(req, 'main/author.html')
+def contacts(req):
+    return render(req, 'main/contacts.html')
+
+'''about page'''
+def about(req):
+    return render(req, 'main/about.html')
+
+'''contacts page'''
+def details(req):
+    return render(req, 'main/details.html')
 
     
     
