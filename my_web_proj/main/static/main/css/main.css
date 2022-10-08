@@ -53,3 +53,13 @@ aside ul li:hover, aside ul a:hover {
     text-decoration: none;
     transform: scale(1.10);
 }
+
+button {
+    position: relative;
+    background-color:transparent; 
+    color:white;
+    font-size: 32px;
+    top: 220px;
+    left: -150px
+    
+}

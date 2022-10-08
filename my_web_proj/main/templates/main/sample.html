@@ -15,6 +15,7 @@
         {% block content %}
         {% endblock %}
 
+        <div>
         <aside>
             <h3> Navigation </h3>
             <ul>
@@ -23,8 +24,16 @@
                 <a href="{% url 'details'%}"><li>Details</li></a>
             </ul>
         </aside>
+        </div>
 
-
+        <div>
+            <form action="{% url 'home'%}">
+                <button>Home</button>
+            </form>
+        </div>
     </main>
+
+
+    
 </body>
 </html>
