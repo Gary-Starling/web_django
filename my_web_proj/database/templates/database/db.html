@@ -4,4 +4,15 @@
 
 {% block content %}
 <h1>Database page</h1>
+    {% if users %}
+        {% for i in users %}
+        <div>
+            <h2>Username: {{ i.name }} | Age: {{ i.age }} | RegDate:{{ i.date_reg }} |</h2>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div>
+            <h2>| Database is empty |</h2>
+        </div>
+    {% endif %}
 {% endblock %}

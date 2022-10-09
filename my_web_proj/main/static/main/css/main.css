@@ -1,7 +1,4 @@
 
-html {
-
-}
 
 
 h1 {
@@ -55,7 +52,7 @@ aside ul li {
     color:rgb(37, 31, 78);
     display: block;
     margin-top: 10px;
-    transition: all .3s ease;
+    transition: all .1s ease;
 }
 
 aside ul li:hover, aside ul a:hover {
