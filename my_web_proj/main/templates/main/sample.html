@@ -1,20 +1,19 @@
 <!-- Шаблон для вывода -->
-{% load static %}
 <!DOCTYPE html>  <!--тип документа-->
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8"> <!--кодировка-->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}{% endblock %}</title>
+    <title> {% block title %}{% endblock %}</title><!--Блок заголовка-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'main/css/main.css'%}">
 </head>
 <body><!--тело страницы-->
+    {% block content %}<!--Блок содержимого-->
+    {% endblock %}
     <main>
-        {% block content %}
-        {% endblock %}
-
         <div>
         <aside>
             <h3> Navigation </h3>
@@ -22,6 +21,7 @@
                 <a href="{% url 'about'%}"><li>About</li></a>
                 <a href="{% url 'contacts'%}"><li>Contacts</li></a>
                 <a href="{% url 'details'%}"><li>Details</li></a>
+                <a href="{% url 'db_start'%}"><li>Database</li></a>
             </ul>
         </aside>
         </div>

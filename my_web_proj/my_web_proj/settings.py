@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles', #js,img,cs look STATIC_URL 
-    'main', #reg my app 'main' - home page/contacts page/details page/about page
+    'main',    #reg my app 'main' - home page/contacts page/details page/about page
     'database' #app for database
 ]
 

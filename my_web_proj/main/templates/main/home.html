@@ -6,14 +6,14 @@
 {% endblock %}
 
 {% block content %}
-    <h1>{{title}}</h1>
+    <h1>{{title}}</h1><!--Вывод из словаря метода views.home() по ключу title-->
     <p>Example</p>
     <!--{% include 'main/plug.html' %}-->
 
     <!--for in dict-->
     {% for elem in val %}
         {% filter lower %}
-        <h2>{{ elem }}</h2>
+        <h2>{{ elem }}</h2><!--Вывод из словаря метода views.home() по ключу val-->
         {% endfilter %}
     {% endfor %}
 {% endblock %}
