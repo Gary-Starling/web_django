@@ -7,9 +7,10 @@
     <div>
         <form method="post">
             {% csrf_token %}
-            {{ users.name }}<br><br>
-            {{ users.age }}<br><br>
-            {{ users.date_reg }}<br><br>
+            {{ users.name }}<br>
+            {{ users.age }}<br>
+            {{ users.date_reg }}<br>
+            <span>{{ errors }}</span>
             <button class="button2" type="submit">Add</button>
         </form>
     </div>

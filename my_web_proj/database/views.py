@@ -1,5 +1,5 @@
 import re
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from .models import UsersInTeam
 from .forms import UserInTeamForm
 
@@ -15,10 +15,23 @@ def db_start(req):
 '''add new user'''
 def add(req):
 
+    errors = ''
+
+    #Добавление нового пользователя в таблицу БД
+    if req.method == 'POST':
+        UserAdd = UserInTeamForm(req.POST)
+        if UserAdd.is_valid():
+            UserAdd.save()
+            return redirect('home')
+        else:
+            errors = 'Wrong input data'
+
     users = UserInTeamForm()
 
+    #Форма для выввода
     data = {
-        'users' : users
+        'users' : users,
+        'errors': errors
     }
 
     return render(req,'database/add.html', data) #Передавать нужно по ключу
