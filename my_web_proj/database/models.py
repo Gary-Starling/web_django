@@ -5,7 +5,7 @@ from django.db import models
 
 
 class UsersInTeam(models.Model):  # Наследуем от models.Model
-
+    
     name = models.CharField('Username', max_length=100)
     age = models.IntegerField('Age')
     date_reg = models.DateTimeField('Date')
@@ -16,3 +16,4 @@ class UsersInTeam(models.Model):  # Наследуем от models.Model
     class Meta:
         verbose_name = 'User'
         verbose_name_plural = 'Users'
+
