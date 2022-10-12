@@ -25,16 +25,3 @@ class UserInTeamForm(ModelForm):
                 'placeholder': 'Date'
             })
         }
-
-
-class IdForm(ModelForm):
-    class Meta:
-        model = UsersInTeam
-        fields = ['id']
-
-        widgets = {
-            "id": NumberInput(attrs={
-                'class': 'form',
-                'id': 'id'
-            }),
-        }
