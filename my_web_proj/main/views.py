@@ -25,6 +25,10 @@ def about(req):
 def details(req):
     return render(req, 'main/details.html')
 
+def debug(request):
+    html = '<body><h1>Django debug_view</h1><br><p>Debug</p></body>'
+    return HttpResponse(html)
+
     
     
     

@@ -8,30 +8,37 @@ from django.views.generic import DetailView
 '''db start page and delete user from database '''
 
 
-def db_start(request):
-
-    #Данные для вывода
-    users = UsersInTeam.objects.order_by('age')
-
+def db_start(requestuest):
     # Удаление пользователя из таблицы
-    if request.method == 'POST':
-        test = request.POST.getlist('test')
-        dtest = { 'dtest' : test }
-        return render(request, 'database/test.html',dtest)
+    if requestuest.method == 'POST':
+        Uid = requestuest.POST['user_id']            # Возьмём id удаляемого узера
+        
+        try:
+            UserDelete = UsersInTeam.objects.get(id=Uid)
+            UserDelete.delete()
+            print("Record deleted successfully!")
+        except:
+            print("Record doesn't exists")
 
-    # Передавать нужно по ключу  CRUD django
-    return render(request, 'database/db.html', {'users': users} )
+        users = UsersInTeam.objects.order_by('age')
+        return render(requestuest, 'database/db.html', {'users': users})
+    else:
+        # Данные для вывода
+        users = UsersInTeam.objects.order_by('age')
+        # Передавать нужно по ключу
+        return render(requestuest, 'database/db.html', {'users': users})
 
 
 '''add new user into database '''
 
-def add(req):
+
+def add(request):
 
     errors = ''
 
     # Добавление нового пользователя в таблицу БД
-    if req.method == 'POST':
-        UserAdd = UserInTeamForm(req.POST)
+    if request.method == 'POST':
+        UserAdd = UserInTeamForm(request.POST)
         if UserAdd.is_valid():
             UserAdd.save()
             return redirect('home')
@@ -46,10 +53,12 @@ def add(req):
         'errors': errors
     }
 
-    return render(req, 'database/add.html', data)  # Передавать нужно по ключу
+    # Передавать нужно по ключу
+    return render(request, 'database/add.html', data)
 
 
 '''dynamic page database/1 database/2'''
+
 
 class NewUserView(DetailView):
     model = UsersInTeam

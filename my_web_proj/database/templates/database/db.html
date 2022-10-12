@@ -7,11 +7,12 @@
     {% if users %}
         {% for i in users %}
         <div>
-            <h2>{{i.id}} Username: {{ i.name }} | Age: {{ i.age }} | RegDate:{{ i.date_reg }} | </h2>
+            <h2>Username: {{ i.name }} | Age: {{ i.age }} | RegDate:{{ i.date_reg }} | </h2>
             <form method="post">
             {% csrf_token %}
             {{ users.date_reg }}
-            <input name="test" type="submit" value="{{i.id}}"/>
+            <input name="user_id" type="hidden" value="{{i.id}}"/>
+            <button class="button3" type="submit">Delete</button>
             </form>
             <br><br>
         </div>

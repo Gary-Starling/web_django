@@ -90,7 +90,7 @@ button {
     font-size: 32px;
 }
 
-.input {
+.input { 
     position:static;
     border-radius: 10px;
     background-color:transparent; 
