@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles', #js,img,cs look STATIC_URL 
+    'rest_framework',             #for REST API
+    'api.apps.ApiConfig',
     'main',                       #reg my app 'main' - home page/contacts page/details page/about page
     'database',                   #app for database
     'debug_toolbar'               #debug
