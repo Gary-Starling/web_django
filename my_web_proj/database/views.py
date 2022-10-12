@@ -1,7 +1,7 @@
 import re
 from django.shortcuts import render, redirect
 from .models import UsersInTeam
-from .forms import UserInTeamForm, IdForm
+from .forms import UserInTeamForm   #, IdForm
 from django.views.generic import DetailView
 # Create your views here.
 
