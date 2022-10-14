@@ -13,6 +13,8 @@ http://127.0.0.1:8000/database     (on this page you can delete users from datab
 
 http://127.0.0.1:8000/database/add (use to add new user to database)
 
+http://127.0.0.1:8000/database/<id> (show detail user)
+
 
 ###API
 v1/users/<userId>/

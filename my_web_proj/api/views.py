@@ -5,7 +5,8 @@ from rest_framework import generics
 from database.models import UsersInTeam
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from django.forms import model_to_dict
+
+from api import serialyzers
 
 
 ''' Представления для DRF '''
@@ -79,13 +80,31 @@ class UserAPIView(APIView):
     def post(self, request):
         
         serializer = UserSerialyzer(data=request.data) #Запрос к форме
-        if serializer.is_valid(raise_exception=True):  #Проверка правильносьт ввода
-
-            new_user = UsersInTeam.objects.create(
-                name=request.data['name'],          #Выберем все поля из JSON запроса
-                age=request.data['age'],
-                date_reg=request.data['date_reg'],
-            )
+        serializer.is_valid(raise_exception=True)      #Проверка правильносьт ввода
+        serializer.save()                              #выовет create в serializers/py
+        
+        '''
+        new_user = UsersInTeam.objects.create(
+            name=request.data['name'],          #Выберем все поля из JSON запроса
+            age=request.data['age'],
+            date_reg=request.data['date_reg'],
+        )
+        '''
 
         #При правильном вводе отправим обратно
-        return Response({'AddUser': model_to_dict(new_user)})
+        return Response({'AddUser': serializer.data})
+
+    def put(self, request, *args, **kwargs):
+        pk = kwargs.get("pk", None)
+        if not pk:
+            return Response({"error":"not allowed"})
+        try:
+            instance = UsersInTeam.objects.get(pk=pk)
+        except:
+            return Response({"error":"id doesn't exist"})
+        
+        #OK запись и ключ существуют
+        serializer = UserSerialyzer(data=request.data, instance=instance)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response({'Put': serializer.data})
