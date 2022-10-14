@@ -1,7 +1,11 @@
 from django.urls import path
 from .views import UsersInfoView, UserInfoView, UserAPIView, UsersInfoViewSorted
 
-
+#CRUD
+#create+
+#read+
+#update
+#delete
 
 urlpatterns = [
     path('v1/users/', UsersInfoView.as_view()),

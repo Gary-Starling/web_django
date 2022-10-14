@@ -10,12 +10,9 @@ from django.forms import model_to_dict
 
 ''' Представления для DRF '''
 
-# Create your views here.
 
-'''get all users'''
-# api/v1/users/
-
-
+'''Получить всех пользователей'''
+# URL <base>/api/v1/users/
 class UsersInfoView(generics.ListAPIView):
     queryset = UsersInTeam.objects.all()
     serializer_class = UserSerialyzer
@@ -27,51 +24,47 @@ class UsersInfoView(generics.ListAPIView):
     '''
 
 
-'''get all users sorted by age'''
-# api/v1/users/sortedByAge
-
-
+'''Получить всех пользователй отсортированных  по id'''
+# URL <base>/api/v1/users/sortedByAge
 class UsersInfoViewSorted(generics.ListAPIView):
     queryset = UsersInTeam.objects.order_by('age')
     serializer_class = UserSerialyzer
 
 
-'''get all users sorted by age'''
-# api/v1/users/sortedById
-
-
+'''Тоже самое по вохрасту'''
+# URL <base>/api/v1/users/sortedById
 class UsersInfoViewSorted(generics.ListAPIView):
     queryset = UsersInTeam.objects.order_by('id')
     serializer_class = UserSerialyzer
 
 
-'''get 1 user'''
-# api/v1/users/<userId>
-
-
+'''Получить данные о пользователе по url'''
+# URL <base>/api/v1/users/<userId>
 class UserInfoView(generics.RetrieveAPIView):  # single model instance.
     queryset = UsersInTeam.objects.all()
     serializer_class = UserSerialyzer
 
 
-''''''
-
-
+'''С использованием serializers'''
+# URL <base>/v1/get/all/
+# URL <base>/v1/post/AddNew/
 class UserAPIView(APIView):
+
     ''' Получить все записи из бд'''
 
     def get(self, request):
         lst = UsersInTeam.objects.all().values()  # Получим значения из БД
+        all = UserSerialyzer(lst, many=True)      # Приведём к виду для json ответа [OrderDict]
         # Выведем весь список пользователей в бд
-        return Response({'Users': lst})
+        return Response({'Users': all.data})
 
-    ''' Отправить запись в бд'''
+    ''' Добавить запись в бд'''
 
     ''' Форма данных для отправки в формате JSON
     "Users": [
     {
         "id": 1,
-        "name": "igor",
+        "name": "Name",
         "age": 29,
         "date_reg": "2022-10-10T11:29:10Z"
     },
@@ -84,11 +77,15 @@ class UserAPIView(APIView):
     '''
 
     def post(self, request):
-        #тут нужен try
-        new_user = UsersInTeam.objects.create(
-            name=request.data['name'],          #Выберем все поля из JSON запроса
-            age=request.data['age'],
-            date_reg=request.data['date_reg'],
-        )
+        
+        serializer = UserSerialyzer(data=request.data) #Запрос к форме
+        if serializer.is_valid(raise_exception=True):  #Проверка правильносьт ввода
+
+            new_user = UsersInTeam.objects.create(
+                name=request.data['name'],          #Выберем все поля из JSON запроса
+                age=request.data['age'],
+                date_reg=request.data['date_reg'],
+            )
+
         #При правильном вводе отправим обратно
         return Response({'AddUser': model_to_dict(new_user)})
