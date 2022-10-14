@@ -64,6 +64,7 @@ query
     }
 
 response
+json
     {
     "Put": {
         "id": 32,
@@ -73,10 +74,21 @@ response
     }
     }
 }
-json
+
 '''
 
 #delete
+'''
+query
+    DELETE:127.0.0.1:8000/api/v1/post/Delete/<id>/
+    body : no
+response
+json
+{
+    "Delet": "delete user with id = 2"
+}
+
+'''
 
 urlpatterns = [
     path('v1/users/', UsersInfoView.as_view()),                     #Показать все(get)
@@ -85,5 +97,5 @@ urlpatterns = [
     path('v1/users/sortedById', UsersInfoViewSorted.as_view()),     #Показать отсортированный по id(get)
     path('v1/get/all/', UserAPIView.as_view()),                     #Показать все, но через APIView
     path('v1/post/AddNew/', UserAPIView.as_view()),                 #Добавить нового юзера(post/create)
-    path('v1/post/update/<int:pk>/', UserAPIView.as_view())         #Изменить данные юзера(put/update)
+    path('v1/post/Delete/<int:pk>/', UserAPIView.as_view())         #Удалить юзера(delete)
 ]

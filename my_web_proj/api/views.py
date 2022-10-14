@@ -52,7 +52,7 @@ class UserInfoView(generics.RetrieveAPIView):  # single model instance.
 class UserAPIView(APIView):
 
     ''' Получить все записи из бд'''
-
+    #get
     def get(self, request):
         lst = UsersInTeam.objects.all().values()  # Получим значения из БД
         all = UserSerialyzer(lst, many=True)      # Приведём к виду для json ответа [OrderDict]
@@ -76,7 +76,7 @@ class UserAPIView(APIView):
         "date_reg": "2022-10-09T11:30:00Z"
     },
     '''
-
+    #post
     def post(self, request):
         
         serializer = UserSerialyzer(data=request.data) #Запрос к форме
@@ -93,7 +93,7 @@ class UserAPIView(APIView):
 
         #При правильном вводе отправим обратно
         return Response({'AddUser': serializer.data})
-
+    #put
     def put(self, request, *args, **kwargs):
         pk = kwargs.get("pk", None)
         if not pk:
@@ -108,3 +108,17 @@ class UserAPIView(APIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response({'Put': serializer.data})
+    
+    #
+    def delete(self, request, *args, **kwargs):
+        pk = kwargs.get("pk", None)
+        if not pk:
+            return Response({"error":"not allowd"})
+        try:
+            instance = UsersInTeam.objects.get(pk=pk)
+        except:
+            return Response({"error":"id doesn't exist"})
+
+        #OK
+        instance.delete()
+        return Response({'Delete': 'delete user with id = ' + str(pk)})

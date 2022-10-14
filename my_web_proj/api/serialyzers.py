@@ -20,3 +20,8 @@ class UserSerialyzer(serializers.ModelSerializer):
         instance.date_reg = validated_data.get("date_reg", instance.date_reg)
         instance.save()
         return instance
+
+    def delete(self, instannce, validated_data):
+        instannce.id = validated_data.get("id", instannce.id)
+        instannce.delete()
+        return instannce
