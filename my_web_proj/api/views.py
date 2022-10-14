@@ -1,12 +1,11 @@
 
 from . serialyzers import UserSerialyzer
 from rest_framework import generics
-
 from database.models import UsersInTeam
-from rest_framework.views import APIView
-from rest_framework.response import Response
+#from rest_framework.views import APIView
+#from rest_framework.response import Response
 
-from api import serialyzers
+#from api import serialyzers
 
 
 ''' Представления для DRF '''
@@ -14,7 +13,7 @@ from api import serialyzers
 
 '''Получить всех пользователей'''
 # URL <base>/api/v1/users/
-class UsersInfoView(generics.ListAPIView):
+class ApiUsersInfoView(generics.ListAPIView):
     queryset = UsersInTeam.objects.all()
     serializer_class = UserSerialyzer
     '''
@@ -27,31 +26,52 @@ class UsersInfoView(generics.ListAPIView):
 
 '''Получить всех пользователй отсортированных  по id'''
 # URL <base>/api/v1/users/sortedByAge
-class UsersInfoViewSorted(generics.ListAPIView):
-    queryset = UsersInTeam.objects.order_by('age')
-    serializer_class = UserSerialyzer
+class ApiUsersInfoViewSortedAge(generics.ListAPIView):
+    queryset = UsersInTeam.objects.order_by('age') #Данные из таблицы
+    serializer_class = UserSerialyzer              #Наш серриализатор
 
 
-'''Тоже самое по вохрасту'''
+'''Тоже самое по вовозрасту'''
 # URL <base>/api/v1/users/sortedById
-class UsersInfoViewSorted(generics.ListAPIView):
-    queryset = UsersInTeam.objects.order_by('id')
-    serializer_class = UserSerialyzer
+class ApiUsersInfoViewSortedId(generics.ListAPIView):
+    queryset = UsersInTeam.objects.order_by('id') #Данные из таблицы
+    serializer_class = UserSerialyzer             #Наш серриализатор
 
 
-'''Получить данные о пользователе по url'''
+'''Получить данные о пользователе по id'''
 # URL <base>/api/v1/users/<userId>
-class UserInfoView(generics.RetrieveAPIView):  # single model instance.
+class ApiUserInfoView(generics.RetrieveAPIView):  # single model instance.
+    queryset = UsersInTeam.objects.all()  #Данные из таблицы
+    serializer_class = UserSerialyzer      #Наш серриализатор
+
+'''Добавить нового юзера'''
+class ApiUserAdd(generics.CreateAPIView):
     queryset = UsersInTeam.objects.all()
     serializer_class = UserSerialyzer
+
+'''Изменить данные юзера по id'''
+class ApiUserUpdate(generics.UpdateAPIView):
+    queryset = UsersInTeam.objects.all() #Данные из таблицы
+    serializer_class = UserSerialyzer    #Наш серриализатор
+
+'''Удалить юзера по id'''
+class ApiUserDelete(generics.RetrieveUpdateDestroyAPIView):
+    queryset = UsersInTeam.objects.all() #Данные из таблицы
+    serializer_class = UserSerialyzer    #Наш серриализатор
+
+
+
+
+
 
 
 '''С использованием serializers'''
 # URL <base>/v1/get/all/
 # URL <base>/v1/post/AddNew/
+'''
 class UserAPIView(APIView):
 
-    ''' Получить все записи из бд'''
+    #Получить все записи из бд
     #get
     def get(self, request):
         lst = UsersInTeam.objects.all().values()  # Получим значения из БД
@@ -59,23 +79,22 @@ class UserAPIView(APIView):
         # Выведем весь список пользователей в бд
         return Response({'Users': all.data})
 
-    ''' Добавить запись в бд'''
+    #Добавить запись в бд
 
-    ''' Форма данных для отправки в формате JSON
-    "Users": [
-    {
-        "id": 1,
-        "name": "Name",
-        "age": 29,
-        "date_reg": "2022-10-10T11:29:10Z"
-    },
-    {
-        "id": 2,
-        "name": "Gary",
-        "age": 25,
-        "date_reg": "2022-10-09T11:30:00Z"
-    },
-    '''
+    #Форма данных для отправки в формате JSON
+    #"Users": [
+    #{
+    #    "id": 1,
+    #    "name": "Name",
+    #    "age": 29,
+    #    "date_reg": "2022-10-10T11:29:10Z"
+    #},
+    #{
+    #    "id": 2,
+    #    "name": "Gary",
+    #    "age": 25,
+    #    "date_reg": "2022-10-09T11:30:00Z"
+    #},
     #post
     def post(self, request):
         
@@ -83,13 +102,12 @@ class UserAPIView(APIView):
         serializer.is_valid(raise_exception=True)      #Проверка правильносьт ввода
         serializer.save()                              #выовет create в serializers/py
         
-        '''
-        new_user = UsersInTeam.objects.create(
-            name=request.data['name'],          #Выберем все поля из JSON запроса
-            age=request.data['age'],
-            date_reg=request.data['date_reg'],
-        )
-        '''
+
+        #new_user = UsersInTeam.objects.create(
+        #    name=request.data['name'],          #Выберем все поля из JSON запроса
+        #    age=request.data['age'],
+        #    date_reg=request.data['date_reg'],
+        #)
 
         #При правильном вводе отправим обратно
         return Response({'AddUser': serializer.data})
@@ -122,3 +140,4 @@ class UserAPIView(APIView):
         #OK
         instance.delete()
         return Response({'Delete': 'delete user with id = ' + str(pk)})
+'''

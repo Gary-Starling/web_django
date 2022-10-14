@@ -10,7 +10,7 @@ class UserSerialyzer(serializers.ModelSerializer):
     class Meta:
         model = UsersInTeam  
         fields = ['id', 'name', 'age', 'date_reg']
-    
+    '''
     def create(self, validated_data):
         return UsersInTeam.objects.create(**validated_data)
     
@@ -25,3 +25,4 @@ class UserSerialyzer(serializers.ModelSerializer):
         instannce.id = validated_data.get("id", instannce.id)
         instannce.delete()
         return instannce
+    '''

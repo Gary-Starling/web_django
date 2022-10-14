@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import UsersInfoView, UserInfoView, UserAPIView, UsersInfoViewSorted
+from .views import *
 
 #CRUD
 #create+
@@ -90,6 +90,7 @@ json
 
 '''
 
+'''
 urlpatterns = [
     path('v1/users/', UsersInfoView.as_view()),                     #Показать все(get)
     path('v1/users/<int:pk>/', UserInfoView.as_view()),             #Показать конкретный по id(get)
@@ -98,4 +99,15 @@ urlpatterns = [
     path('v1/get/all/', UserAPIView.as_view()),                     #Показать все, но через APIView
     path('v1/post/AddNew/', UserAPIView.as_view()),                 #Добавить нового юзера(post/create)
     path('v1/post/Delete/<int:pk>/', UserAPIView.as_view())         #Удалить юзера(delete)
+]
+'''
+
+urlpatterns = [
+    path('v1/users/', ApiUsersInfoView.as_view()),                     #Показать все(get)
+    path('v1/users/<int:pk>/', ApiUserInfoView.as_view()),             #Показать конкретный по id(get)
+    path('v1/users/sortedByAge/', ApiUsersInfoViewSortedAge.as_view()), #Показать отсортированный по возрасту(get)
+    path('v1/users/sortedById/', ApiUsersInfoViewSortedId.as_view()),   #Показать отсортированный по id(get)
+    path('v1/post/AddNew/', ApiUserAdd.as_view()),                     #Добавить нового юзера(post/create)
+    path('v1/put/ChangeUser/<int:pk>/', ApiUserUpdate.as_view()),      #Изменить данные юзера(put)
+    path('v1/delete/<int:pk>/', ApiUserDelete.as_view()),              #Удалить юзера(delete)
 ]
