@@ -52,14 +52,15 @@ query
     }
 
 response
+
     {
     "AddUser": {
-        "id": 31,
-        "name": "Myname",
-        "age": 17,
-        "date_reg": "2022-08-05T08:30:10Z"
+        	"id": 31,
+        	"name": "Myname",
+        	"age": 17,
+        	"date_reg": "2022-08-05T08:30:10Z"
+    		}
     }
-}
 
 json
 '''
@@ -91,8 +92,8 @@ json
             "name": "Gary",
             "age": 25,
             "date_reg": "2022-10-09T11:30:00Z"
-        },
-        {..........
+        }
+        ]
 '''
 #read+
 
