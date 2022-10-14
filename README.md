@@ -39,9 +39,13 @@ http://127.0.0.1:8000/database/<id> (show detail user)
 //create
 '''
 POSTMAN
+
 query
+
     POST:127.0.0.1:8000/api/v1/post/AddNew/
-    body : {
+    
+    body : 
+    {
     "name": "Myname",
     "age": 17,
     "date_reg": "2022-08-05T8:30:10Z"
@@ -56,6 +60,7 @@ response
         "date_reg": "2022-08-05T08:30:10Z"
     }
 }
+
 json
 '''
 
@@ -63,10 +68,15 @@ json
 //read
 '''
 POSTMAN
+
 query
+
     GET:127.0.0.1:8000/api/v1/get/all
+    
     body:no
+    
 response
+
 json
 {
     "Users": [
@@ -89,7 +99,9 @@ json
 
 //update
 '''
+
 query
+
     PUT:127.0.0.1:8000/api/v1/post/update/<id-user>/
     body : {
     "name": "new",                      //change name
@@ -98,7 +110,9 @@ query
     }
 
 response
+
 json
+
     {
     "Put": {
         "id": 32,
@@ -112,11 +126,16 @@ json
 '''
 
 //delete
+
 '''
+
 query
+
     DELETE:127.0.0.1:8000/api/v1/post/Delete/<id>/
     body : no
+    
 response
+
 json
 {
     "Delet": "delete user with id = 2"
