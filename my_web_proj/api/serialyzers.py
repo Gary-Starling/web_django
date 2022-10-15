@@ -1,4 +1,4 @@
-from ast import Delete
+
 from rest_framework import serializers  # json
 from database.models import UsersInTeam # для модели представленияы
 
