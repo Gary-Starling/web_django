@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'api.apps.ApiConfig',         #api (api/apps.py- class ApiConfig)
     'main',                       #reg my app 'main' - home page/contacts page/details page/about page
     'database',                   #app for database
+    'rest_framework.authtoken',   #for token
+    'djoser',                     #for token
     'debug_toolbar'               #debug
 ]
 
@@ -143,5 +145,10 @@ REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES':[
         'rest_framework.renderers.JSONRenderer',
         'rest_framework.renderers.BrowsableAPIRenderer'
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+       'rest_framework.authentication.TokenAuthentication',
+       'rest_framework.authentication.BasicAuthentication',
+       'rest_framework.authentication.SessionAuthentication', 
     ]
 }

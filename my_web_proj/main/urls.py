@@ -1,4 +1,4 @@
-from operator import concat
+
 from django.urls import path
 from . import views
 

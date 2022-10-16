@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path
 from django.urls import include # for add url patterns
 
 from django.conf import settings
@@ -23,8 +23,8 @@ import debug_toolbar
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('main.urls')),             # general page(main app)
-    path('database/', include('database.urls')),# database page(database app)
-    path('api/', include('api.urls')),           # api page
-    path('__debug__/', include(debug_toolbar.urls)),
+    path('', include('main.urls')),                     # general page(main app)
+    path('database/', include('database.urls')),        # database page(database app)
+    path('api/', include('api.urls')),                  # api page
+    path('__debug__/', include(debug_toolbar.urls)),    # debug
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

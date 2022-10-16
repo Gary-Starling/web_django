@@ -1,4 +1,5 @@
-from django.urls import path
+from django.urls import include
+from django.urls import path, re_path
 from .views import *
 
 #CRUD
@@ -103,6 +104,8 @@ urlpatterns = [
 '''
 
 urlpatterns = [
+    path('v1/auth/', include('djoser.urls')),                           #сессии
+    re_path(r'v1/auth/', include('djoser.urls.authtoken')),                # 
     path('v1/users/', ApiUsersInfoView.as_view()),                      #Показать все(get)
     path('v1/users/<int:pk>/', ApiUserInfoView.as_view()),              #Показать конкретный по id(get)
     path('v1/users/sortedByAge/', ApiUsersInfoViewSortedAge.as_view()), #Показать отсортированный по возрасту(get)
@@ -110,4 +113,5 @@ urlpatterns = [
     path('v1/post/AddNew/', ApiUserAdd.as_view()),                      #Добавить нового юзера(post/create)
     path('v1/put/ChangeUser/<int:pk>/', ApiUserUpdate.as_view()),       #Изменить данные юзера(put)
     path('v1/delete/<int:pk>/', ApiUserDelete.as_view()),               #Удалить юзера(delete)
+    path('v1/update_with_token/<int:pk>/',ApiUserUpdateToken.as_view())
 ]
