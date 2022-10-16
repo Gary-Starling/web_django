@@ -6,10 +6,11 @@ from database.models import UsersInTeam # для модели представл
 class UserSerialyzer(serializers.ModelSerializer):
 
     # Модель представления данных будет нашего типа из datbase.models.py
+    who_add = serializers.HiddenField(default=serializers.CurrentUserDefault()) #fix serializers.CurrentUserDefault()
 
     class Meta:
         model = UsersInTeam  
-        fields = ['id', 'name', 'age', 'date_reg']
+        fields = ['id', 'name', 'age', 'date_reg', 'who_add']
     '''
     def create(self, validated_data):
         return UsersInTeam.objects.create(**validated_data)

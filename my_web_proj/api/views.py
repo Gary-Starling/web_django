@@ -2,26 +2,32 @@
 from .serialyzers  import UserSerialyzer
 from rest_framework import generics, viewsets
 from database.models import UsersInTeam
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
-from .permissions import IsAdminReadOnly
-#from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAdminUser
+from .permissions import IsAdminReadOnly,IsOwnerOrReadonly
 
 #from api import serialyzers
 
 
+'''
+Для теста
+auth admin pass admin   id 1
+auth user pass gary1234 id 2
+'''
+
 ''' Представления для DRF '''
 
-class ApiUserViewSet(viewsets.ModelViewSet):
-    queryset = UsersInTeam.objects.all()
-    serializer_class = UserSerialyzer
+#class ApiUserViewSet(viewsets.ModelViewSet):
+#    queryset = UsersInTeam.objects.all()
+#    serializer_class = UserSerialyzer
 
 
-'''Получить всех пользователей'''
+'''Получить всех пользователей
+Прочитать может кто угодно '''
 # URL <base>/api/v1/users/
 class ApiUsersInfoView(generics.ListCreateAPIView):
     queryset = UsersInTeam.objects.all()
     serializer_class = UserSerialyzer
-    permission_classes = (IsAuthenticatedOrReadOnly, )
+    permission_classes = (IsAuthenticatedOrReadOnly, ) #
     '''
     def get(self, request):
         all_users = UsersInTeam.objects.all()
@@ -30,43 +36,54 @@ class ApiUsersInfoView(generics.ListCreateAPIView):
     '''
 
 
-'''Получить всех пользователй отсортированных  по id'''
+'''Получить всех пользователй отсортированных  по id
+Прочитать может кто угодно '''
 # URL <base>/api/v1/users/sortedByAge
 class ApiUsersInfoViewSortedAge(generics.ListAPIView):
     queryset = UsersInTeam.objects.order_by('age') #Данные из таблицы
     serializer_class = UserSerialyzer              #Наш серриализатор
+    permission_classes = (IsAuthenticatedOrReadOnly, ) #
 
 
-'''Тоже самое по вовозрасту'''
+'''Тоже самое по вовозрасту
+Прочитать может кто угодно '''
 # URL <base>/api/v1/users/sortedById
 class ApiUsersInfoViewSortedId(generics.ListAPIView):
     queryset = UsersInTeam.objects.order_by('id') #Данные из таблицы
     serializer_class = UserSerialyzer             #Наш серриализатор
+    permission_classes = (IsAuthenticatedOrReadOnly, ) #
 
 
-'''Получить данные о пользователе по id'''
+'''Получить данные о пользователе по id
+Прочитать может кто угодно '''
 # URL <base>/api/v1/users/<userId>
 class ApiUserInfoView(generics.RetrieveAPIView):  # single model instance.
     queryset = UsersInTeam.objects.all()  #Данные из таблицы
     serializer_class = UserSerialyzer      #Наш серриализатор
+    permission_classes = (IsAuthenticatedOrReadOnly, ) #
 
-'''Добавить нового юзера'''
+'''Добавить нового юзера
+Запись закрепляется за создателем'''
 class ApiUserAdd(generics.CreateAPIView):
     queryset = UsersInTeam.objects.all()
     serializer_class = UserSerialyzer
-    permission_classes = (IsAdminReadOnly, )
+    permission_classes = (IsAuthenticatedOrReadOnly, ) #
 
-'''Изменить данные юзера по id'''
-class ApiUserUpdate(generics.UpdateAPIView):
+
+'''Изменить данные юзера по id
+Может только то кто создал'''
+class ApiUserUpdate(generics.RetrieveUpdateAPIView):
     queryset = UsersInTeam.objects.all() #Данные из таблицы
     serializer_class = UserSerialyzer    #Наш серриализатор
-    permission_classes = (IsAdminReadOnly, )
+    permission_classes = (IsOwnerOrReadonly, ) #
 
-'''Удалить юзера по id'''
-class ApiUserDelete(generics.RetrieveUpdateDestroyAPIView):
+
+'''Удалить юзера по id
+Может только администратор'''
+class ApiUserDelete(generics.RetrieveDestroyAPIView):
     queryset = UsersInTeam.objects.all() #Данные из таблицы
     serializer_class = UserSerialyzer    #Наш серриализатор
-    permission_classes = (IsAdminReadOnly, )
+    permission_classes = (IsAdminUser, ) #
 
 
 
