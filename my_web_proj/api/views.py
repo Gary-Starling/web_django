@@ -1,6 +1,7 @@
 
 from .serialyzers  import UserSerialyzer
 from rest_framework import generics, viewsets
+from rest_framework.authentication import TokenAuthentication
 from database.models import UsersInTeam
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAdminUser, IsAuthenticated
 from .permissions import IsAdminReadOnly,IsOwnerOrReadonly
@@ -86,12 +87,12 @@ class ApiUserDelete(generics.RetrieveDestroyAPIView):
     permission_classes = (IsAdminUser, ) #
 
 
-'''Изменить данные юзера по id с использованием токена
-Может только то кто создал'''
+'''Изменить данные юзера по id с использованием токенал'''
 class ApiUserUpdateToken(generics.RetrieveUpdateAPIView):
     queryset = UsersInTeam.objects.all() #Данные из таблицы
     serializer_class = UserSerialyzer    #Наш серриализатор
     permission_classes = (IsAuthenticated, ) #
+    #authentication_classes = (TokenAuthentication,) можно сделать и так
 
 
 
