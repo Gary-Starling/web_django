@@ -94,6 +94,14 @@ class ApiUserUpdateToken(generics.RetrieveUpdateAPIView):
     permission_classes = (IsAuthenticated, ) #
     #authentication_classes = (TokenAuthentication,) можно сделать и так
 
+'''Получить данные о пользователе по id
+По JWT токену'''
+# URL <base>/api/v1/jwt/GetPUT/<userId>
+class ApiUserJwtInfoView(generics.RetrieveAPIView):  # single model instance.
+    queryset = UsersInTeam.objects.all()  #Данные из таблицы
+    serializer_class = UserSerialyzer      #Наш серриализатор
+    permission_classes = (IsAuthenticated, ) #
+
 
 
 
