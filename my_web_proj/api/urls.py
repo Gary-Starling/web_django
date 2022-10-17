@@ -114,8 +114,8 @@ urlpatterns = [
     path('v1/put/ChangeUser/<int:pk>/', ApiUserUpdate.as_view()),                   #Изменить данные юзера(put)
     path('v1/delete/<int:pk>/', ApiUserDelete.as_view()),                           #Удалить юзера(delete)
     #path('v1/update_with_token/<int:pk>/',ApiUserUpdateToken.as_view())            #Обновить данные юзера с помощью токена(djoser)
-    path('v1/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),     #jwt
-    path('v1/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),    #
+    path('v1/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),     #получить jwt
+    path('v1/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),    #обновить токен
     path('v1/token/verify/', TokenVerifyView.as_view(), name='token_verify'),       #
-    path('v1/jwt/GetPUT/<int:pk>/', ApiUserJwtInfoView.as_view()),       #
+    path('v1/jwt/GetPUT/<int:pk>/', ApiUserJwtInfoView.as_view()),                  #
 ]

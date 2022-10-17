@@ -32,6 +32,12 @@ http://127.0.0.1:8000/v1/put/ChangeUser/<int:pk>/    	#Изменить данн
     
 http://127.0.0.1:8000/v1/delete/<int:pk>/               #Удалить юзера по id(delete)
 	
+--jwt--
+http://127.0.0.1:8000/v1/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),     #получить jwt
+
+http://127.0.0.1:8000/v1/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),    #обновить токен
+
+http://127.0.0.1:8000/v1/jwt/GetPUT/<int:pk>/', ApiUserJwtInfoView.as_view()),                  #получитиь данные юзера по id(jwt)
 
 
 
